@@ -5,10 +5,12 @@ const TextForm = (props) => {
   const handleUpperCaseCLick = () => {
     let tempText = text.toUpperCase();
     setText(tempText);
+    props.showAlert("Converted to Uppercase!", "success");
   };
   const handleLowerCaseCLick = () => {
     let tempText = text.toLowerCase();
     setText(tempText);
+    props.showAlert("Converted to Lowercase!", "success");
   };
   // Credits: A
   const handleCopy = () => {
@@ -17,12 +19,14 @@ const TextForm = (props) => {
     text.select();
     text.setSelectionRange(0, 9999);
     navigator.clipboard.writeText(text.value);
+    props.showAlert("Copied to clipboard", "success");
   };
 
   // Credits: Coding Wala
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
+    props.showAlert("Extra spaces removed", "success");
   };
   const handleOnChange = (event) => {
     setText(event.target.value);
