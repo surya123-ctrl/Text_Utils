@@ -14,9 +14,8 @@ const TextForm = (props) => {
   };
   // Credits: A
   const handleCopy = () => {
-    console.log("I am copy");
     var text = document.getElementById("myBox");
-    text.select();
+    // text.select();
     text.setSelectionRange(0, 9999);
     navigator.clipboard.writeText(text.value);
     props.showAlert("Copied to clipboard", "success");
@@ -46,29 +45,36 @@ const TextForm = (props) => {
             id="myBox"
             rows="8"
             style={{
-              backgroundColor: props.mode === "dark" ? "grey" : "white",
-              color: props.mode === "dark" ? "white" : "rgb(3 18 33)",
+              backgroundColor: props.mode === "dark" ? "13466e" : "white",
+              color: props.mode === "dark" ? "black" : "rgb(3 18 33)",
             }}
           ></textarea>
         </div>
         <button
           className="btn btn-primary mx-2 my-2"
           onClick={handleUpperCaseCLick}
+          disabled={text.length === 0}
         >
           UpperCase
         </button>
         <button
           className="btn btn-primary mx-2 my-2"
           onClick={handleLowerCaseCLick}
+          disabled={text.length === 0}
         >
           LowerCase
         </button>
-        <button className="btn btn-primary mx-2 my-2" onClick={handleCopy}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleCopy}
+          disabled={text.length === 0}
+        >
           Copy Text
         </button>
         <button
           className="btn btn-primary mx-2 my-2"
           onClick={handleExtraSpaces}
+          disabled={text.length === 0}
         >
           Remove Extra Spaces
         </button>
@@ -79,11 +85,17 @@ const TextForm = (props) => {
       >
         <h2>Your text summary</h2>
         <p>
-          <b>{text.split(" ").length}</b> words and <b>{text.length}</b>{" "}
-          characters
+          <b>
+            {text.split(/\s+/).filter((element) => element.length !== 0).length}
+          </b>{" "}
+          words and <b>{text.length}</b> characters
         </p>
         <p>
-          <b>{0.008 * text.split(" ").length}</b> Minutes read
+          <b>
+            {0.008 *
+              text.split(" ").filter((element) => element.length !== 0).length}
+          </b>{" "}
+          Minutes read
         </p>
         <h2>Preview</h2>
         <p>{text}</p>

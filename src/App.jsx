@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import About from "./components/About";
 import Alert from "./components/Alert";
-import { Message } from "@material-ui/icons";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const App = () => {
   const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
@@ -29,21 +29,29 @@ const App = () => {
   };
   return (
     <>
-      <Navbar
-        title="TextUtils"
-        about="About TextUtils"
-        mode={mode}
-        toggleMode={toggleMode}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
-        <TextForm
-          showAlert={showAlert}
-          heading="Enter the text to analyze"
+      <Router>
+        <Navbar
+          title="TextUtils"
+          // about="About"
           mode={mode}
+          toggleMode={toggleMode}
         />
-        {/* <About /> */}
-      </div>
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Switch>
+            <Route exact path="/about">
+              <About mode={mode} />
+            </Route>
+            <Route exact path="/">
+              <TextForm
+                showAlert={showAlert}
+                heading="Enter the text to analyze below"
+                mode={mode}
+              />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </>
   );
 };
